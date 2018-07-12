@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class ValueSheet : MonoBehaviour {
 
-    public static float DrawWidth=.5f;
+    public static float DrawWidth=.2f;
 }

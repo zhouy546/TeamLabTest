@@ -22,9 +22,7 @@ public class TCreateMesh : MonoBehaviour {
 
         if (Input.GetMouseButton(0))
         {
-
             Vector3 temp = Camera.main.ScreenToWorldPoint(new Vector3(horizontal, Vertical, 10.0f));
-
             if ((temp - pervious).magnitude > .5f) {
                 Mousepoints.Add(temp);
                 pervious = temp;
