@@ -15,46 +15,53 @@ public class TCreateMesh : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        var horizontal = Input.mousePosition.x;
+        if (ValueSheet.b_CreateMesh) {
+            var horizontal = Input.mousePosition.x;
 
-        var Vertical = Input.mousePosition.y;
+            var Vertical = Input.mousePosition.y;
 
 
-        if (Input.GetMouseButton(0))
-        {
-            Vector3 temp = Camera.main.ScreenToWorldPoint(new Vector3(horizontal, Vertical, 10.0f));
-            if ((temp - pervious).magnitude > .5f) {
-                Mousepoints.Add(temp);
-                pervious = temp;
-            }
-        }
-
-        else if (Input.GetMouseButtonUp(0))
-        {
-            if (Mousepoints.Count >= 2) {
-                createpoint();
-                //---------------------------------DrawCheckSphere
-                //int num = 0;
-                //foreach (var item in MeshPoints)
-                //{
-                //    GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                //    gameObject.transform.localScale = .2f * Vector3.one;
-                //    gameObject.transform.position = item;
-                //    gameObject.name = num.ToString();
-                //    num++;
-                //}
-                //----------------------------------
-                DrawMesh();
+            if (Input.GetMouseButton(0))
+            {
+                Vector3 temp = Camera.main.ScreenToWorldPoint(new Vector3(horizontal, Vertical, 10.0f));
+                if ((temp - pervious).magnitude > .5f)
+                {
+                    Mousepoints.Add(temp);
+                    pervious = temp;
+                }
             }
 
-            MeshPoints.Clear();
-            Mousepoints.Clear();
-        }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                if (Mousepoints.Count >= 2)
+                {
+                    createpoint();
+                    //---------------------------------DrawCheckSphere
+                    //int num = 0;
+                    //foreach (var item in MeshPoints)
+                    //{
+                    //    GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    //    gameObject.transform.localScale = .2f * Vector3.one;
+                    //    gameObject.transform.position = item;
+                    //    gameObject.name = num.ToString();
+                    //    num++;
+                    //}
+                    //----------------------------------
+                    DrawMesh();
+                }
+
+                MeshPoints.Clear();
+                Mousepoints.Clear();
+                ValueSheet.b_CreateMesh = false;
+            }
+        }  
     }
 
     void DrawMesh() {
         GameObject plane = new GameObject();
         plane.name = "plane";
+        plane.layer = LayerMask.NameToLayer("Collision");
+
         //  添加组件
         MeshFilter mfilter = plane.AddComponent<MeshFilter>();
         MeshRenderer render = plane.AddComponent<MeshRenderer>();
@@ -65,7 +72,7 @@ public class TCreateMesh : MonoBehaviour {
         Mesh mesh = mfilter.mesh;
         //  设置三个顶点
 
-            mesh.vertices =MeshPoints.ToArray();
+        mesh.vertices =MeshPoints.ToArray();
 
         //  设置三角形 （面）  这里 三个点的顺序 应该有（顺时针法则）
         int[] VerticesNum = new int[(mesh.vertices.Length - 2) * 3];
@@ -122,7 +129,10 @@ public class TCreateMesh : MonoBehaviour {
 
         plane.AddComponent<PolygonCollider2D>().points = tempPoints.ToArray();
         plane.AddComponent<Rigidbody2D>();
+        plane.AddComponent<DestoryObject>();
+        plane.GetComponent<DestoryObject>().EmitMesh = mesh;
         plane.GetComponent<Rigidbody2D>().isKinematic = true;
+
     }
 
 
