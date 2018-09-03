@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(Animator))]
-public class Tree : WorldObject {
+public class MTree : WorldObject {
      Animator animator;
 
     public int RainValue = 0;
@@ -45,13 +45,13 @@ public class Tree : WorldObject {
 
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log(other.name);
+        //Debug.Log(other.name);
         WorldObject WO = other.GetComponent<WorldObjectParticle>().worldObject;
 
         if (WO.objectType == WorldObject.ObjectType.RainCloud)
         {
             //hunderValue= Mathf.Clamp(ThunderValue -1, 0, 5);
-            Debug.Log("Rain");
+         //   Debug.Log("Rain");
             RainValue = Mathf.Clamp(RainValue + 1, RainMinValue, RainMaxValue);
         }
     }

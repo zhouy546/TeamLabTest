@@ -30,15 +30,46 @@ public class Cloud : WorldObject {
 
         Particle.Play();
 
-        PlaySound();
 
+        PlaySound();
         LeanTween.cancel(TransformObject);
         LeanTween.scale(TransformObject, TargetScale, .1f).setOnComplete(delegate () {
             LeanTween.scale(TransformObject, Vector3.one, .1f);
+        });
+
+        StartCoroutine(PlaySound(Particle.main.duration));
+    }
+
+    IEnumerator PlaySound(float StopInSec) {
+        FadeInSound();
+        yield return new WaitForSeconds(StopInSec-1);
+        FadeOutSound();
+    }
+
+    void FadeInSound() {
+        PlaySound();
+        audioSource.volume = 0;
+        LeanTween.value(0, 1, 1f).setOnUpdate(delegate (float val)
+        {
+            audioSource.volume = val;
+        });
+    }
+
+    void FadeOutSound() {
+        LeanTween.value(1, 0, 1f).setOnUpdate(delegate (float val)
+        {
+            audioSource.volume = val;
+        }).setOnComplete(delegate () {
+            StopSound();
+            audioSource.volume = 1;
         });
     }
 
     public void PlaySound() {
         audioSource.PlayOneShot(sound);
+    }
+
+    public void StopSound() {
+        audioSource.Stop();
     }
 }

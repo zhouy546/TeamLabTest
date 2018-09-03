@@ -13,30 +13,37 @@ public class CameraRayCast : MonoBehaviour {
 	void Update () {
         if (Input.GetMouseButtonDown(0))
         {
-            //Get the mouse position on the screen and send a raycast into the game world from that position.
-            Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            //If something was hit, the RaycastHit2D.collider will not be null.
-            if (hit.collider != null)
+
+
+           // Debug.Log("----phy----");
+            RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction);
+            foreach (var i in hits)
             {
-                if (hit.collider.gameObject.tag== "Interactive")
+                if (i.collider != null)
                 {
+                    if (i.collider.gameObject.tag == "Interactive")
+                    {
 
-                    Debug.Log(hit.collider.name);
-                    WorldObject WO = hit.collider.GetComponent<WorldObject>();
-                    WO.Clickdoing();
+                        Debug.Log(i.collider.name);
+                        WorldObject WO = i.collider.GetComponent<WorldObject>();
+                        WO.Clickdoing();
 
+                    }
+                    else
+                    {
+                        ValueSheet.b_CreateMesh = true;//Draw Mesh
+
+                    }
                 }
-                else {
+                else
+                {
                     ValueSheet.b_CreateMesh = true;//Draw Mesh
 
                 }
             }
-            else {
-                ValueSheet.b_CreateMesh = true;//Draw Mesh
-
-            }
-        }
+ 
+       }
     }
 }

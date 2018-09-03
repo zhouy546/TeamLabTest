@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 public class ValueSheet : MonoBehaviour {
-    public static bool b_CreateMesh = false;
+    public static bool b_CreateMesh = true;
 
     public static float DrawWidth=.05f;
 

@@ -15,15 +15,17 @@ public class TCreateMesh : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        Debug.Log(ValueSheet.b_CreateMesh);
         if (ValueSheet.b_CreateMesh) {
             var horizontal = Input.mousePosition.x;
 
             var Vertical = Input.mousePosition.y;
 
-
+           
             if (Input.GetMouseButton(0))
             {
                 Vector3 temp = Camera.main.ScreenToWorldPoint(new Vector3(horizontal, Vertical, 10.0f));
+               // Debug.Log(temp);
                 if ((temp - pervious).magnitude > .5f)
                 {
                     Mousepoints.Add(temp);
@@ -52,7 +54,7 @@ public class TCreateMesh : MonoBehaviour {
 
                 MeshPoints.Clear();
                 Mousepoints.Clear();
-                ValueSheet.b_CreateMesh = false;
+                ValueSheet.b_CreateMesh = true;
             }
         }  
     }
@@ -132,6 +134,7 @@ public class TCreateMesh : MonoBehaviour {
         plane.AddComponent<DestoryObject>();
         plane.GetComponent<DestoryObject>().EmitMesh = mesh;
         plane.GetComponent<Rigidbody2D>().isKinematic = true;
+       // plane.GetComponent<MeshRenderer>().material.color = Color.gray;
 
     }
 
@@ -150,23 +153,23 @@ public class TCreateMesh : MonoBehaviour {
                     float point1y = -ValueSheet.DrawWidth / ((Mousepoint2 - Mousepoint1).magnitude) * (Mousepoint2.x - Mousepoint1.x) + Mousepoint1.y;
 
 
-                    Vector3 point1 = new Vector3(point1x, point1y, 10);
+                    Vector3 point1 = new Vector3(point1x, point1y, 0);
                     MeshPoints.Add(point1);
 
                     float point2x = -ValueSheet.DrawWidth / ((Mousepoint2 - Mousepoint1).magnitude) * (Mousepoint2.y - Mousepoint1.y) + Mousepoint1.x;
                     float point2y = ValueSheet.DrawWidth / ((Mousepoint2 - Mousepoint1).magnitude) * (Mousepoint2.x - Mousepoint1.x) + Mousepoint1.y;
-                    Vector3 point2 = new Vector3(point2x, point2y, 10);
+                    Vector3 point2 = new Vector3(point2x, point2y, 0);
                     MeshPoints.Add(point2);
                 }
                     float point3x = ValueSheet.DrawWidth / ((Mousepoint2 - Mousepoint1).magnitude) * (Mousepoint2.y - Mousepoint1.y) + Mousepoint1.x + (Mousepoint2.x - Mousepoint1.x);
                   float point3y = -ValueSheet.DrawWidth / ((Mousepoint2 - Mousepoint1).magnitude) * (Mousepoint2.x - Mousepoint1.x) + Mousepoint1.y + (Mousepoint2.y - Mousepoint1.y);
 
-                    Vector3 point3 = new Vector3(point3x, point3y, 10);
+                    Vector3 point3 = new Vector3(point3x, point3y, 0);
                    MeshPoints.Add(point3);
 
                     float point4x = -ValueSheet.DrawWidth / ((Mousepoint2 - Mousepoint1).magnitude) * (Mousepoint2.y - Mousepoint1.y) + Mousepoint1.x + (Mousepoint2.x - Mousepoint1.x);
                 float point4y = ValueSheet.DrawWidth / ((Mousepoint2 - Mousepoint1).magnitude) * (Mousepoint2.x - Mousepoint1.x) + Mousepoint1.y + (Mousepoint2.y - Mousepoint1.y);
-                Vector3 point4 = new Vector3(point4x, point4y, 10);
+                Vector3 point4 = new Vector3(point4x, point4y, 0);
                   MeshPoints.Add(point4);
 
             }

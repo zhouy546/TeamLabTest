@@ -124,7 +124,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1550866237892626}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.877, z: 0}
+  m_LocalPosition: {x: 0.5, y: 4.877, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4892038432497414}
@@ -282,7 +282,7 @@ MonoBehaviour:
   TransformObject: {fileID: 1550866237892626}
   Particle: {fileID: 198388808108315562}
   audioSource: {fileID: 82911781287821480}
-  sound: {fileID: 8300000, guid: a64dfe113fe551a44bf55a26c0ac58c6, type: 3}
+  sound: {fileID: 8300000, guid: 38e1dc56dc3ff67408818e90d8d1ba0a, type: 3}
 --- !u!114 &114929765807067528
 MonoBehaviour:
   m_ObjectHideFlags: 1
